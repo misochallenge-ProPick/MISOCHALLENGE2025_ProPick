@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:propick/page/inputType_page.dart';
 
-class UserinputPage extends StatelessWidget {
-  const UserinputPage({super.key});
+class InputAgePage extends StatelessWidget {
+  const InputAgePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,31 +41,66 @@ class UserinputPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 40),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                elevation: 0,
-                side: BorderSide(width: 1),
-                minimumSize: Size(350, 70),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )
-              ),
-              onPressed: () {},
-              child: SizedBox(
-                width: 350,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("15~19세",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                    ),
-                  ),
-                ),
-              )
-            ),
+            AgeButton(ageText: "15~19세"),
+            SizedBox(height: 20),
+            AgeButton(ageText: "20~39세"),
+            SizedBox(height: 20),
+            AgeButton(ageText: "40~59세"),
+            SizedBox(height: 20),
+            AgeButton(ageText: "60세 이상"),
           ],
+        ),
+
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.white,
+          child: TextButton(
+            style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              backgroundColor: Color.fromARGB(255, 34, 92, 168),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const InputTypePage()),
+              );
+            },
+            child: Text(
+              "다음",
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class AgeButton extends StatelessWidget {
+  String ageText;
+  AgeButton({super.key, required this.ageText});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        side: BorderSide(width: 1),
+        minimumSize: Size(350, 90),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+      onPressed: () {},
+      child: SizedBox(
+        width: 330,
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            ageText,
+            style: TextStyle(color: Colors.black, fontSize: 17),
+          ),
         ),
       ),
     );
