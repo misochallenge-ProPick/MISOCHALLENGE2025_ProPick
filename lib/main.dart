@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputAge_page.dart';
+import 'package:propick/page/inputArea_page.dart';
 import 'package:propick/page/inputType_page.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: InputAgePage(),
+      home: InputAreaPage(),
     );
   }
 }

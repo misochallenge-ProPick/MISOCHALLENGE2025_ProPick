@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputAge_page.dart';
+import 'package:propick/page/inputArea_page.dart';
 
 class InputTypePage extends StatelessWidget {
   const InputTypePage({super.key});
@@ -123,13 +124,16 @@ class InputTypePage extends StatelessWidget {
               ),
               backgroundColor: Color.fromARGB(255, 34, 92, 168),
             ),
-            onPressed: () {},
-            child: Text("다음",
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            )
+            onPressed: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => const InputAreaPage()),
+              );
+            },
+            child: Text(
+              "다음",
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
           ),
         ),
       ),
