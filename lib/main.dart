@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:propick/page/userInput_page.dart';
+import 'package:propick/page/inputAge_page.dart';
 
 void main() {
   runApp(const MyWidget());
