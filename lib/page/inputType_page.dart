@@ -152,7 +152,7 @@ class TypeButton extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         side: BorderSide(width: 1),
-        minimumSize: Size(120, 42),
+        minimumSize: Size(120, 50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       ),
       onPressed: () {},
