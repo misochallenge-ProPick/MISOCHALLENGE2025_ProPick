@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:propick/page/inputType_page.dart';
 
 class InputAreaPage extends StatefulWidget {
-  const InputAreaPage({super.key});
+  InputAreaPage({super.key});
 
   @override
   State<InputAreaPage> createState() => _InputAreaPageState();
 }
+
+String dropdownValue = "서울";
 
 class _InputAreaPageState extends State<InputAreaPage> {
   @override
@@ -30,17 +32,7 @@ class _InputAreaPageState extends State<InputAreaPage> {
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const InputTypePage()),
-              );
-            },
-            icon: Icon(Icons.arrow_back_ios_new),
-          ),
         ),
-
 
         body: Column(
           children: [
@@ -51,24 +43,40 @@ class _InputAreaPageState extends State<InputAreaPage> {
                 children: [
                   Text(
                     "이제 마지막이에요!",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                   ),
                   Text(
                     "회원님은 어느 지역에 거주하시나요?",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
             ),
             SizedBox(height: 40),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              // child: DropdownButton(
-              //   items: [
-                  
-              //   ],
-              //   onChanged: 
-              // ),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: DropdownButton(
+                icon: Icon(Icons.keyboard_arrow_down_rounded),
+
+                elevation: 50,
+
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                value: dropdownValue,
+                items: [
+                  DropdownMenuItem(value: "서울", child: Text("서울특별시")),
+                  DropdownMenuItem(value: "부산", child: Text("부산광역시")),
+                  DropdownMenuItem(value: "대구", child: Text("대구광역시")),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    dropdownValue = value!;
+                  });
+                },
+              ),
             ),
           ],
         ),
@@ -89,8 +97,6 @@ class _InputAreaPageState extends State<InputAreaPage> {
             ),
           ),
         ),
-
-
       ),
     );
   }

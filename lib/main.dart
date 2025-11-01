@@ -20,7 +20,7 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FirstLoadingPage(),
+      home: InputAgePage(),
     );
   }
 }

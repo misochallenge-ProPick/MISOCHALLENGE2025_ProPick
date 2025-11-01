@@ -25,10 +25,6 @@ class InputAgePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
-          leading: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.arrow_back_ios_new),
-          ),
         ),
 
         body: Column(
@@ -37,10 +33,10 @@ class InputAgePage extends StatelessWidget {
             Center(
               child: Text(
                 "회원님의 연령대를 알려주세요!",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
               ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 67),
             AgeButton(ageText: "15~19세"),
             SizedBox(height: 20),
             AgeButton(ageText: "20~39세"),
@@ -89,7 +85,7 @@ class AgeButton extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         side: BorderSide(width: 1),
-        minimumSize: Size(350, 90),
+        minimumSize: Size(350, 64),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       onPressed: () {},

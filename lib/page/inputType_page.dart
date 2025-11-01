@@ -26,15 +26,6 @@ class InputTypePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
             ),
           ),
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const InputAgePage()),
-              );
-            },
-            icon: Icon(Icons.arrow_back_ios_new),
-          ),
         ),
 
         body: Column(
@@ -46,21 +37,22 @@ class InputTypePage extends StatelessWidget {
                 children: [
                   Text(
                     "회원님은 어떤 유형을 선호하시나요?",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                   ),
                   Text(
                     "(중복가능)",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 35),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TypeButton(typeText: "창업"),
                       SizedBox(width: 10),
@@ -71,6 +63,7 @@ class InputTypePage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TypeButton(typeText: "다자녀"),
                       SizedBox(width: 10),
@@ -81,6 +74,7 @@ class InputTypePage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TypeButton(typeText: "창업"),
                       SizedBox(width: 10),
@@ -91,6 +85,7 @@ class InputTypePage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TypeButton(typeText: "창업"),
                       SizedBox(width: 10),
@@ -101,6 +96,7 @@ class InputTypePage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TypeButton(typeText: "창업"),
                       SizedBox(width: 10),
@@ -127,7 +123,7 @@ class InputTypePage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context, 
-                MaterialPageRoute(builder: (context) => const InputAreaPage()),
+                MaterialPageRoute(builder: (context) => InputAreaPage()),
               );
             },
             child: Text(
@@ -152,8 +148,8 @@ class TypeButton extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         side: BorderSide(width: 1),
-        minimumSize: Size(120, 50),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        minimumSize: Size(108, 44),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: () {},
       child: Text(
