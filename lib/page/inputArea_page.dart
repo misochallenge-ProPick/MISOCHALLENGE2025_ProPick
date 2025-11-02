@@ -1,14 +1,16 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputType_page.dart';
 
 class InputAreaPage extends StatefulWidget {
-  InputAreaPage({super.key});
+  const InputAreaPage({super.key});
 
   @override
   State<InputAreaPage> createState() => _InputAreaPageState();
 }
 
-String dropdownValue = "서울";
+List<String> areaItems = ["강원특별자치도 양구군", "강원특별자치도 속초시", "경기도 수원특례시"];
+String? dropdownValue;
 
 class _InputAreaPageState extends State<InputAreaPage> {
   @override
@@ -52,30 +54,95 @@ class _InputAreaPageState extends State<InputAreaPage> {
                 ],
               ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 32),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: DropdownButton(
-                icon: Icon(Icons.keyboard_arrow_down_rounded),
+              child: Center(
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2(
+                    isExpanded: true,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
 
-                elevation: 50,
+                    value: dropdownValue,
+                    hint: Text(
+                      "거주 지역을 입력하세요",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0x99999999),
+                      ),
+                    ),
+                    
+                    items: areaItems.map((value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      );
+                    }).toList(),
 
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                    selectedItemBuilder: (BuildContext context) {
+                      return areaItems.map((value) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        );
+                      }).toList();
+                    },
+
+                    onChanged: (value) {
+                      setState(() {
+                        dropdownValue = value!;
+                      });
+                    },
+
+                    buttonStyleData: ButtonStyleData(
+                      height: 64,
+                      width: 350,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Color(0x99999999)),
+                        color: Colors.white,
+                      ),
+                    ),
+
+                    iconStyleData: IconStyleData(
+                      icon: Icon(Icons.keyboard_arrow_down_rounded),
+                      iconEnabledColor: Colors.black,
+                      iconSize: 32,
+                    ),
+
+                    dropdownStyleData: DropdownStyleData(
+                      elevation: 0,
+                      maxHeight: 427,
+                      offset: Offset(0, -16),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Color(0x99999999)),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                    ),
+                    menuItemStyleData: MenuItemStyleData(height: 37),
+                  ),
                 ),
-                value: dropdownValue,
-                items: [
-                  DropdownMenuItem(value: "서울", child: Text("서울특별시")),
-                  DropdownMenuItem(value: "부산", child: Text("부산광역시")),
-                  DropdownMenuItem(value: "대구", child: Text("대구광역시")),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    dropdownValue = value!;
-                  });
-                },
               ),
             ),
           ],
