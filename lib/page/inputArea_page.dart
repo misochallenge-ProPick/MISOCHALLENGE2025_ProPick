@@ -45,11 +45,11 @@ class _InputAreaPageState extends State<InputAreaPage> {
                 children: [
                   Text(
                     "이제 마지막이에요!",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     "회원님은 어느 지역에 거주하시나요?",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

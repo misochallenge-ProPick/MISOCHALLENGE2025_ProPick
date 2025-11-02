@@ -2,9 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:propick/page/inputAge_page.dart';
 import 'package:propick/page/inputArea_page.dart';
 
-class InputTypePage extends StatelessWidget {
+class InputTypePage extends StatefulWidget {
   const InputTypePage({super.key});
 
+  @override
+  State<InputTypePage> createState() => _InputTypePageState();
+}
+
+final typeList = [
+  ["창업", "의료/의학", "IT"],
+  ["다자녀", "공무원", "임산부"],
+  ["창업", "창업", "창업"],
+  ["창업", "창업", "창업"],
+  ["창업", "창업", "창업"],
+];
+List<dynamic> clickedtype = [];
+
+class _InputTypePageState extends State<InputTypePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,11 +51,12 @@ class InputTypePage extends StatelessWidget {
                 children: [
                   Text(
                     "회원님은 어떤 유형을 선호하시나요?",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
+                  SizedBox(height: 6),
                   Text(
                     "(중복가능)",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -51,60 +66,29 @@ class InputTypePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TypeButton(typeText: "창업"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "의료/의학"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "IT"),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TypeButton(typeText: "다자녀"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "공무원"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "군인가족"),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TypeButton(typeText: "창업"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "창업"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "창업"),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TypeButton(typeText: "창업"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "창업"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "창업"),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TypeButton(typeText: "창업"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "창업"),
-                      SizedBox(width: 10),
-                      TypeButton(typeText: "창업"),
-                    ],
-                  ),
+                  for (var row in typeList) ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (var text in row) ...[
+                          TypeButton(
+                            typeText: text,
+                            isSelected: clickedtype.contains(text)
+                                ? true
+                                : false,
+                            onTap: () {
+                              setState(() {
+                                if(clickedtype.contains(text)) clickedtype.remove(text);
+                                else clickedtype.add(text);
+                              });
+                            },
+                          ),
+                          SizedBox(width: 12),
+                        ],
+                        SizedBox(height: 12),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -122,7 +106,7 @@ class InputTypePage extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.push(
-                context, 
+                context,
                 MaterialPageRoute(builder: (context) => InputAreaPage()),
               );
             },
@@ -139,22 +123,34 @@ class InputTypePage extends StatelessWidget {
 
 class TypeButton extends StatelessWidget {
   String typeText;
-  TypeButton({super.key, required this.typeText});
+  bool isSelected;
+  VoidCallback onTap;
+  TypeButton({
+    super.key,
+    required this.typeText,
+    required this.isSelected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
+        backgroundColor: isSelected
+            ? Color.fromARGB(255, 34, 92, 168)
+            : Colors.white,
         elevation: 0,
-        side: BorderSide(width: 1),
+        side: BorderSide(width: 1, color: Color(0x99999999)),
         minimumSize: Size(108, 44),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
-      onPressed: () {},
+      onPressed: onTap,
       child: Text(
         typeText,
-        style: TextStyle(color: Colors.black, fontSize: 12),
+        style: TextStyle(
+          color: isSelected ? Colors.white : Colors.black,
+          fontSize: 12,
+        ),
       ),
     );
   }

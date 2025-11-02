@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputType_page.dart';
 
-class InputAgePage extends StatelessWidget {
+class InputAgePage extends StatefulWidget {
   const InputAgePage({super.key});
 
+  @override
+  State<InputAgePage> createState() => _InputAgePageState();
+}
+
+final ageText = ["만 15~19세", "만 20~39세", "만 40~59세", "만 60세 이상"];
+int selectedIndex = -1;
+
+class _InputAgePageState extends State<InputAgePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,17 +41,23 @@ class InputAgePage extends StatelessWidget {
             Center(
               child: Text(
                 "회원님의 연령대를 알려주세요!",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(height: 67),
-            AgeButton(ageText: "15~19세"),
-            SizedBox(height: 20),
-            AgeButton(ageText: "20~39세"),
-            SizedBox(height: 20),
-            AgeButton(ageText: "40~59세"),
-            SizedBox(height: 20),
-            AgeButton(ageText: "60세 이상"),
+
+            for (int i = 0; i < ageText.length; i++) ...[
+              AgeButton(
+                ageText: ageText[i],
+                isSelected: selectedIndex == i,
+                onTap: () {
+                  setState(() {
+                    selectedIndex = i;
+                  });
+                },
+              ),
+              SizedBox(height: 20),
+            ],
           ],
         ),
 
@@ -51,6 +65,7 @@ class InputAgePage extends StatelessWidget {
           color: Colors.white,
           child: TextButton(
             style: TextButton.styleFrom(
+              minimumSize: Size(350, 64),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -76,26 +91,41 @@ class InputAgePage extends StatelessWidget {
 // ignore: must_be_immutable
 class AgeButton extends StatelessWidget {
   String ageText;
-  AgeButton({super.key, required this.ageText});
+  bool isSelected;
+  VoidCallback onTap;
+
+  AgeButton({
+    super.key,
+    required this.ageText,
+    required this.isSelected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
+        backgroundColor: isSelected
+            ? Color.fromARGB(255, 34, 92, 168)
+            : Colors.white,
         elevation: 0,
-        side: BorderSide(width: 1),
+        side: BorderSide(width: 1, color: Color(0x99999999)),
         minimumSize: Size(350, 64),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
-      onPressed: () {},
+      onPressed: onTap,
+      
       child: SizedBox(
         width: 330,
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
             ageText,
-            style: TextStyle(color: Colors.black, fontSize: 17),
+            style: TextStyle(
+              color: isSelected ? Colors.white : Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
