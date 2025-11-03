@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputAge_page.dart';
 import 'package:propick/page/inputArea_page.dart';
+import 'package:propick/util/TextBtn.dart';
 
 class InputTypePage extends StatefulWidget {
   const InputTypePage({super.key});
@@ -92,30 +93,18 @@ class _InputTypePageState extends State<InputTypePage> {
                 ],
               ),
             ),
+
+            Spacer(), // 맨 아래로 밀어줌
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32),
+                child: Textbtn(text: "다음", pageRoute: InputAreaPage()),
+              ),
+            ),
           ],
         ),
 
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              backgroundColor: Color.fromARGB(255, 34, 92, 168),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => InputAreaPage()),
-              );
-            },
-            child: Text(
-              "다음",
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
-          ),
-        ),
       ),
     );
   }

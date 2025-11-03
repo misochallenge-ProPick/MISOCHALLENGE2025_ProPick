@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputType_page.dart';
+import 'package:propick/util/TextBtn.dart';
 
 class InputAreaPage extends StatefulWidget {
   const InputAreaPage({super.key});
@@ -145,24 +146,16 @@ class _InputAreaPageState extends State<InputAreaPage> {
                 ),
               ),
             ),
-          ],
-        ),
 
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+            Spacer(), // 맨 아래로 밀어줌
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32),
+                child: Textbtn(text: "완료", pageRoute: InputAreaPage()),
               ),
-              backgroundColor: Color.fromARGB(255, 34, 92, 168),
             ),
-            onPressed: () {},
-            child: Text(
-              "완료",
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
-          ),
+          ],
         ),
       ),
     );

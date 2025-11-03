@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputType_page.dart';
+import 'package:propick/util/TextBtn.dart';
 
 class InputAgePage extends StatefulWidget {
   const InputAgePage({super.key});
@@ -58,30 +59,15 @@ class _InputAgePageState extends State<InputAgePage> {
               ),
               SizedBox(height: 20),
             ],
-          ],
-        ),
-
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              minimumSize: Size(350, 64),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+            Spacer(), // 맨 아래로 밀어줌
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32),
+                child: Textbtn(text: "다음", pageRoute: InputTypePage()),
               ),
-              backgroundColor: Color.fromARGB(255, 34, 92, 168),
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const InputTypePage()),
-              );
-            },
-            child: Text(
-              "다음",
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
-          ),
+          ],
         ),
       ),
     );
@@ -114,7 +100,7 @@ class AgeButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       onPressed: onTap,
-      
+
       child: SizedBox(
         width: 330,
         child: Align(

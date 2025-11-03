@@ -3,6 +3,7 @@ import 'package:propick/page/firstLoading_page.dart';
 import 'package:propick/page/inputAge_page.dart';
 import 'package:propick/page/inputArea_page.dart';
 import 'package:propick/page/inputType_page.dart';
+import 'package:propick/page/main_page.dart';
 
 void main() {
   runApp(const MyWidget());
@@ -20,7 +21,7 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: InputAgePage(),
+      home: MainPage(),
     );
   }
 }
