@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:propick/page/summary_page.dart';
 
 class ListPage extends StatelessWidget {
   ListPage({super.key});
 
-  final ListCardText1 = ["임신 사전건강관리 지원사업"];
-  final ListCardText2 = [["보건복지부 출산정책과", "현금 지급", "1회성"]];
+  List<String> ListCardText1 = ["임신 사전건강관리 지원사업"];
+  List<List<String>> ListCardText2 = [
+    ["보건복지부 출산정책과", "현금 지급", "1회성"],
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,7 @@ class ListPage extends StatelessWidget {
         backgroundColor: Colors.white,
 
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           toolbarHeight: 80,
           backgroundColor: Colors.white,
           elevation: 0,
@@ -152,7 +156,14 @@ class ListPage extends StatelessWidget {
                                       168,
                                     ),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SummaryPage(),
+                                      ),
+                                    );
+                                  },
                                   child: Text(
                                     "자세히 보기",
                                     style: TextStyle(
