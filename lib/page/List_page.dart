@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ListPage extends StatelessWidget {
-  const ListPage({super.key});
+  ListPage({super.key});
+
+  final ListCardText1 = ["임신 사전건강관리 지원사업"];
+  final ListCardText2 = [["보건복지부 출산정책과", "현금 지급", "1회성"]];
 
   @override
   Widget build(BuildContext context) {
@@ -63,14 +66,126 @@ class ListPage extends StatelessWidget {
           ],
         ),
 
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "장담모한다님을 위한",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "복지 리스트",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(height: 36),
+
+            Expanded(
+              child: ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                scrollDirection: Axis.vertical,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: 110,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Color(0x99999999)),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          ListCardText1[0],
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 12),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "• ${ListCardText2[0][0]}",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(
+                                    "• ${ListCardText2[0][1]}",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Text(
+                                    "• ${ListCardText2[0][2]}",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 100,
+                                height: 35,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    backgroundColor: Color.fromARGB(
+                                      255,
+                                      34,
+                                      92,
+                                      168,
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                  child: Text(
+                                    "자세히 보기",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(height: 16);
+                },
+              ),
+            ),
+          ],
+        ),
+
         bottomNavigationBar: BottomAppBar(
           height: 90,
           color: Colors.white,
           elevation: 3,
           shadowColor: Colors.black,
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
                 children: [
