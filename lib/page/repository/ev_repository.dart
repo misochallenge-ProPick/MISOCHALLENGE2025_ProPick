@@ -50,12 +50,15 @@ class _WelfareDetailPageState extends State<WelfareDetailPage> {
     for (final item in itemElements) {
       final jurMnofNm = item.getElement('jurMnofNm')?.text.trim();
       final lifeArray = item.getElement('lifeArray')?.text.trim();
+      final servNm = item.getElement('servNm')?.text.trim();
 
       if (jurMnofNm != null &&
           lifeArray != null &&
+          servNm != null &&
           jurMnofNm.isNotEmpty &&
-          lifeArray.isNotEmpty) {
-        results.add([jurMnofNm, lifeArray]);
+          lifeArray.isNotEmpty &&
+          servNm.isNotEmpty) {
+        results.add([jurMnofNm, lifeArray, servNm]);
       }
     }
 
@@ -105,10 +108,14 @@ class _WelfareDetailPageState extends State<WelfareDetailPage> {
               child: ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
+                  final jurMnofNm = items[index][0];
+                  final lifeArray = items[index][1];
+                  final servNm = items[index][2];
+
                   return Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
-                      items[index][0] + " " + items[index][1],
+                      "$jurMnofNm / $lifeArray / $servNm",
                       style: TextStyle(fontSize: 16),
                     ),
                   );
