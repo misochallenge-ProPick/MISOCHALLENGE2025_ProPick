@@ -3,7 +3,9 @@ import 'package:propick/page/inputAge_page.dart';
 import 'package:propick/util/TextBtn.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  MainPage({super.key});
+
+  String username = "장담모한다";
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class MainPage extends StatelessWidget {
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: "장담모한다님",
+                            text: "${username}님",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,

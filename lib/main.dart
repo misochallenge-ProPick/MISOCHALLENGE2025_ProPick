@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:propick/page/repository/ev_repository.dart';
 import 'package:propick/page/list_page.dart';
 import 'package:propick/page/firstLoading_page.dart';
 import 'package:propick/page/inputAge_page.dart';
@@ -23,7 +24,7 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SummaryPage(),
+      home: WelfareDetailPage(),
     );
   }
 }

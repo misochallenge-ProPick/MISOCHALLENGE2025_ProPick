@@ -3,6 +3,8 @@ import 'package:propick/util/TextBtn.dart';
 
 class SummaryPage extends StatelessWidget {
   SummaryPage({super.key});
+  
+  String username = "장담모한다";
 
   String summaryTitle = "청년 월세 지원";
   List<String> firstText = [
@@ -47,11 +49,11 @@ class SummaryPage extends StatelessWidget {
               Image.asset('assets/images/propick_doorimage.png', scale: 2),
               SizedBox(height: 40),
               Text(
-                "장담모한다님을 위한",
+                "${username}님을 위한",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               Text(
-                "AI혜택 요약 정리",
+                "AI 혜택 요약 정리",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               TextButton(
@@ -117,9 +119,11 @@ class SummaryPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 50,),
+              SizedBox(height: 50),
 
-              Align(child: Textbtn(text: "서류 작성하러 가기 →", pageRoute: SummaryPage())),
+              Align(
+                child: Textbtn(text: "서류 작성하러 가기 →", pageRoute: SummaryPage()),
+              ),
             ],
           ),
         ),

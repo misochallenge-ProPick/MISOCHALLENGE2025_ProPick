@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputType_page.dart';
+import 'package:propick/page/list_page.dart';
 import 'package:propick/util/TextBtn.dart';
 
 class InputAreaPage extends StatefulWidget {
@@ -152,7 +153,7 @@ class _InputAreaPageState extends State<InputAreaPage> {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32),
-                child: Textbtn(text: "완료", pageRoute: InputAreaPage()),
+                child: Textbtn(text: "완료", pageRoute: ListPage()),
               ),
             ),
           ],

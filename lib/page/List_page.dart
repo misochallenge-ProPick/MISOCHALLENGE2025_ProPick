@@ -4,6 +4,7 @@ import 'package:propick/page/summary_page.dart';
 class ListPage extends StatelessWidget {
   ListPage({super.key});
 
+  String username = "장담모한다"; 
   List<String> ListCardText1 = ["임신 사전건강관리 지원사업"];
   List<List<String>> ListCardText2 = [
     ["보건복지부 출산정책과", "현금 지급", "1회성"],
@@ -77,7 +78,7 @@ class ListPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "장담모한다님을 위한",
+                  "${username}님을 위한",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 Text(
