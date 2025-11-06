@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:propick/page/summary_page.dart';
+import 'package:provider/provider.dart';
+import '/providers/item_provider.dart';
 
 class ListPage extends StatelessWidget {
+
   ListPage({super.key});
 
-  String username = "장담모한다"; 
+  String username = "장담모한다";
   List<String> ListCardText1 = ["임신 사전건강관리 지원사업"];
   List<List<String>> ListCardText2 = [
     ["보건복지부 출산정책과", "현금 지급", "1회성"],
@@ -12,6 +15,9 @@ class ListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  final items = Provider.of<ItemProvider>(context).items; 
+
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -78,7 +84,7 @@ class ListPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "${username}님을 위한",
+                  "$username님을 위한",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 Text(
@@ -93,7 +99,7 @@ class ListPage extends StatelessWidget {
               child: ListView.separated(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 scrollDirection: Axis.vertical,
-                itemCount: 10,
+                itemCount: items.length,
                 itemBuilder: (context, index) {
                   return Container(
                     height: 110,
@@ -105,7 +111,7 @@ class ListPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          ListCardText1[0],
+                          items[index][2],
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -122,21 +128,21 @@ class ListPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "• ${ListCardText2[0][0]}",
+                                    "• ${items[index][0]}",
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                   Text(
-                                    "• ${ListCardText2[0][1]}",
+                                    "• ${items[index][1]}",
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   Text(
-                                    "• ${ListCardText2[0][2]}",
+                                    "• ${items[index][3]}",
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
