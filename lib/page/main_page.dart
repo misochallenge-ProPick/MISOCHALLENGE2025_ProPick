@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputAge_page.dart';
+import 'package:propick/page/list_page.dart';
 import 'package:propick/util/TextBtn.dart';
 
 class MainPage extends StatelessWidget {
@@ -62,7 +63,7 @@ class MainPage extends StatelessWidget {
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: "${username}님",
+                            text: "$username님",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -149,7 +150,12 @@ class MainPage extends StatelessWidget {
               Column(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ListPage()),
+                      );
+                    },
                     icon: Icon(Icons.grid_view_rounded, size: 30),
                   ),
                   Transform.translate(

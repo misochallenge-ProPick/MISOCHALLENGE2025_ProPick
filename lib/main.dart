@@ -29,6 +29,6 @@ class MyWidget extends StatefulWidget {
 class _MyWidgetState extends State<MyWidget> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: WelfareDetailPage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: FirstLoadingPage());
   }
 }

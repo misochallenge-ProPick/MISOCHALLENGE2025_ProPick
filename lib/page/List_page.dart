@@ -8,15 +8,10 @@ class ListPage extends StatelessWidget {
   ListPage({super.key});
 
   String username = "장담모한다";
-  List<String> ListCardText1 = ["임신 사전건강관리 지원사업"];
-  List<List<String>> ListCardText2 = [
-    ["보건복지부 출산정책과", "현금 지급", "1회성"],
-  ];
 
   @override
   Widget build(BuildContext context) {
-  final items = Provider.of<ItemProvider>(context).items; 
-
+  final items = Provider.of<ItemProvider>(context).items;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -128,7 +123,7 @@ class ListPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "• ${items[index][0]}",
+                                    "• ${items[index][0]} ${items[index][3]}",
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
@@ -142,7 +137,7 @@ class ListPage extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    "• ${items[index][3]}",
+                                    "• ${items[index][4]}",
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
@@ -244,7 +239,12 @@ class ListPage extends StatelessWidget {
               Column(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ListPage()),
+                      );
+                    },
                     icon: Icon(Icons.grid_view_rounded, size: 30),
                   ),
                   Transform.translate(

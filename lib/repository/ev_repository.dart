@@ -6,14 +6,14 @@ import 'package:xml/xml.dart';
 import 'package:provider/provider.dart';
 import '/providers/item_provider.dart';
 
-class WelfareDetailPage extends StatefulWidget {
-  const WelfareDetailPage({super.key});
+class APIDataPage extends StatefulWidget {
+  const APIDataPage({super.key});
 
   @override
-  _WelfareDetailPageState createState() => _WelfareDetailPageState();
+  _APIDataPage createState() => _APIDataPage();
 }
 
-class _WelfareDetailPageState extends State<WelfareDetailPage> {
+class _APIDataPage extends State<APIDataPage> {
   @override
   void initState() {
     super.initState();
@@ -33,7 +33,6 @@ class _WelfareDetailPageState extends State<WelfareDetailPage> {
       final xmlString = response.body;
       final parsedItems = extractTextFromXml(xmlString);
       Provider.of<ItemProvider>(context, listen: false).setItems(parsedItems);
-      
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MainPage()),
@@ -55,16 +54,19 @@ class _WelfareDetailPageState extends State<WelfareDetailPage> {
       final lifeArray = item.getElement('lifeArray')?.text.trim();
       final servNm = item.getElement('servNm')?.text.trim();
       final jurOrgNm = item.getElement('jurOrgNm')?.text.trim();
+      final rprsCtadr = item.getElement('rprsCtadr')?.text.trim();
 
       if (jurMnofNm != null &&
           lifeArray != null &&
           servNm != null &&
           jurOrgNm != null &&
+          rprsCtadr != null &&
           jurMnofNm.isNotEmpty &&
           lifeArray.isNotEmpty &&
           servNm.isNotEmpty &&
-          jurOrgNm.isNotEmpty) {
-        results.add([jurMnofNm, lifeArray, servNm, jurOrgNm]);
+          jurOrgNm.isNotEmpty &&
+          rprsCtadr.isNotEmpty) {
+        results.add([jurMnofNm, lifeArray, servNm, jurOrgNm, rprsCtadr]);
       }
     }
 

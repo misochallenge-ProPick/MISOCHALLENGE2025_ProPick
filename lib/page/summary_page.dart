@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:propick/page/list_page.dart';
 import 'package:propick/util/TextBtn.dart';
 
 class SummaryPage extends StatelessWidget {
@@ -176,7 +177,12 @@ class SummaryPage extends StatelessWidget {
               Column(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ListPage()),
+                      );
+                    },
                     icon: Icon(Icons.grid_view_rounded, size: 30),
                   ),
                   Transform.translate(
