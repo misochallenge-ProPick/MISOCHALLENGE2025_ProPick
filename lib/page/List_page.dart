@@ -4,14 +4,13 @@ import 'package:provider/provider.dart';
 import '/providers/item_provider.dart';
 
 class ListPage extends StatelessWidget {
-
   ListPage({super.key});
 
   String username = "장담모한다";
 
   @override
   Widget build(BuildContext context) {
-  final items = Provider.of<ItemProvider>(context).items;
+    final items = Provider.of<ItemProvider>(context).items;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -162,7 +161,8 @@ class ListPage extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => SummaryPage(),
+                                        builder: (context) =>
+                                            SummaryPage(servId: items[index][5]),
                                       ),
                                     );
                                   },

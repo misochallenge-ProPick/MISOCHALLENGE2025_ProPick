@@ -55,18 +55,22 @@ class _APIDataPage extends State<APIDataPage> {
       final servNm = item.getElement('servNm')?.text.trim();
       final jurOrgNm = item.getElement('jurOrgNm')?.text.trim();
       final rprsCtadr = item.getElement('rprsCtadr')?.text.trim();
+      final servId = item.getElement('servId')?.text.trim();
+      
 
       if (jurMnofNm != null &&
           lifeArray != null &&
           servNm != null &&
           jurOrgNm != null &&
           rprsCtadr != null &&
+          servId != null &&
           jurMnofNm.isNotEmpty &&
           lifeArray.isNotEmpty &&
           servNm.isNotEmpty &&
           jurOrgNm.isNotEmpty &&
-          rprsCtadr.isNotEmpty) {
-        results.add([jurMnofNm, lifeArray, servNm, jurOrgNm, rprsCtadr]);
+          rprsCtadr.isNotEmpty &&
+          servId.isNotEmpty) {
+        results.add([jurMnofNm, lifeArray, servNm, jurOrgNm, rprsCtadr, servId]);
       }
     }
 
