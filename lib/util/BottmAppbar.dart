@@ -41,7 +41,7 @@ class PropickBottomAppbar extends StatelessWidget {
               ),
             ],
           ),
-          Container(
+          Container( 
             width: 100,
             height: 100,
             decoration: BoxDecoration(

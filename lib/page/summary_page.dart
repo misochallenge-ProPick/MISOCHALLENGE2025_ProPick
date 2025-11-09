@@ -64,111 +64,99 @@ class _SummaryPageState extends State<SummaryPage> {
         final servName = data['servNm'] ?? '';
         final summaryText = data['wantedDtl'] ?? '';
 
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
+        return Scaffold(
+          backgroundColor: Colors.white,
+
+          appBar: AppBar(
+            scrolledUnderElevation: 0,
+            toolbarHeight: 80,
             backgroundColor: Colors.white,
-
-            appBar: AppBar(
-              scrolledUnderElevation: 0,
-              toolbarHeight: 80,
-              backgroundColor: Colors.white,
-              elevation: 0,
-              leadingWidth: 70,
-              leading: Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Image.asset(
-                  'assets/images/propick_logo_2x_black.png',
-                  scale: 1,
-                ),
+            elevation: 0,
+            leadingWidth: 70,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Image.asset(
+                'assets/images/propick_logo_2x_black.png',
+                scale: 1,
               ),
             ),
-
-            body: Align(
-              alignment: Alignment.center,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/images/propick_doorimage.png',
-                      scale: 2,
-                    ),
-                    SizedBox(height: 40),
-                    Text(
-                      "$username님을 위한",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "AI 혜택 요약 정리",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "요약은 어떻게 이루어지나요?",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black.withAlpha(200),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 50),
-                    Container(
-                      width: 350,
-                      padding: EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Color(0x99999999)),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Column(
-                          children: [
-                            Text(
-                              servName,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-
-                            SizedBox(height: 12),
-                            Text(
-                              summaryText,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(height: 50),
-
-                    Align(
-                      child: Textbtn(
-                        text: "서류 작성하러 가기 →",
-                        pageRoute: SummaryPage(servId: ""),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            bottomNavigationBar: PropickBottomAppbar()
           ),
+
+          body: Align(
+            alignment: Alignment.center,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  Image.asset('assets/images/propick_doorimage.png', scale: 2),
+                  SizedBox(height: 40),
+                  Text(
+                    "$username님을 위한",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "AI 혜택 요약 정리",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "요약은 어떻게 이루어지나요?",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black.withAlpha(200),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                  Container(
+                    width: 350,
+                    padding: EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Color(0x99999999)),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          Text(
+                            servName,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                          SizedBox(height: 12),
+                          Text(
+                            summaryText,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 50),
+
+                  Align(
+                    child: Textbtn(
+                      text: "서류 작성하러 가기 →",
+                      pageRoute: SummaryPage(servId: ""),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          bottomNavigationBar: PropickBottomAppbar(),
         );
       },
     );

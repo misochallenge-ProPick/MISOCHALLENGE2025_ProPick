@@ -7,7 +7,6 @@ class MainPage extends StatelessWidget {
   MainPage({super.key});
 
   String username = "장담모한다";
-  
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +102,7 @@ class MainPage extends StatelessWidget {
           ),
         ),
 
-        bottomNavigationBar: PropickBottomAppbar()
+        bottomNavigationBar: PropickBottomAppbar(),
       ),
     );
   }
