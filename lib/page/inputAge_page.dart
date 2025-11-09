@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:propick/page/inputType_page.dart';
 import 'package:propick/util/TextBtn.dart';
+import 'package:propick/util/TextBtn_save.dart';
 
 class InputAgePage extends StatefulWidget {
   const InputAgePage({super.key});
@@ -64,7 +65,11 @@ class _InputAgePageState extends State<InputAgePage> {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32),
-                child: Textbtn(text: "다음", pageRoute: InputTypePage()),
+                child: SaveBtn(
+                  text: "다음",
+                  info: (selectedIndex+1).toString(),
+                  pageRoute: InputTypePage()
+                ),
               ),
             ),
           ],

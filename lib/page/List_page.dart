@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:propick/page/main_page.dart';
 import 'package:propick/page/summary_page.dart';
+import 'package:propick/util/BottmAppbar.dart';
 import 'package:provider/provider.dart';
 import '/providers/item_provider.dart';
 
@@ -11,6 +13,8 @@ class ListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = Provider.of<ItemProvider>(context).items;
+    final infos = Provider.of<ItemProvider>(context).infos;
+    final typeInfos = Provider.of<ItemProvider>(context).typeInfo;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -85,6 +89,11 @@ class ListPage extends StatelessWidget {
                   "복지 리스트",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
+                SizedBox(height: 30),
+                Text(
+                  "${typeInfos} \n ${infos}"
+                ),
+
               ],
             ),
             SizedBox(height: 36),
@@ -161,8 +170,9 @@ class ListPage extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            SummaryPage(servId: items[index][5]),
+                                        builder: (context) => SummaryPage(
+                                          servId: items[index][5],
+                                        ),
                                       ),
                                     );
                                   },
@@ -191,74 +201,7 @@ class ListPage extends StatelessWidget {
           ],
         ),
 
-        bottomNavigationBar: BottomAppBar(
-          height: 90,
-          color: Colors.white,
-          elevation: 3,
-          shadowColor: Colors.black,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.home_filled, size: 30),
-                  ),
-                  Transform.translate(
-                    offset: Offset(0, -6),
-                    child: Text(
-                      "홈",
-                      style: TextStyle(fontSize: 12, color: Colors.black),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromARGB(255, 34, 92, 168),
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Center(
-                    child: Text(
-                      "프로픽",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Column(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ListPage()),
-                      );
-                    },
-                    icon: Icon(Icons.grid_view_rounded, size: 30),
-                  ),
-                  Transform.translate(
-                    offset: Offset(0, -6),
-                    child: Text(
-                      "전체메뉴",
-                      style: TextStyle(fontSize: 12, color: Colors.black),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+        bottomNavigationBar: PropickBottomAppbar()
       ),
     );
   }

@@ -25,7 +25,7 @@ class _APIDataPage extends State<APIDataPage> {
   // 공공데이터 상세 API 호출
   Future<void> fetchWelfareDetail() async {
     final url = Uri.parse(
-      'https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001?serviceKey=b5685498584d0bc46ca1924ad0f65950f62af6ab3906cc103498bc6fdd5edfff&callTp=L&pageNo=1&numOfRows=14&srchKeyCode=003',
+      'https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001?serviceKey=b5685498584d0bc46ca1924ad0f65950f62af6ab3906cc103498bc6fdd5edfff&callTp=L&pageNo=1&numOfRows=300&srchKeyCode=003',
     );
 
     final response = await http.get(url);

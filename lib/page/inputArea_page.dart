@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:propick/page/inputType_page.dart';
 import 'package:propick/page/list_page.dart';
 import 'package:propick/util/TextBtn.dart';
+import 'package:propick/util/TextBtn_save.dart';
 
 class InputAreaPage extends StatefulWidget {
   const InputAreaPage({super.key});
@@ -78,7 +79,7 @@ class _InputAreaPageState extends State<InputAreaPage> {
                         color: Color(0x99999999),
                       ),
                     ),
-                    
+
                     items: areaItems.map((value) {
                       return DropdownMenuItem(
                         value: value,
@@ -110,9 +111,11 @@ class _InputAreaPageState extends State<InputAreaPage> {
                     },
 
                     onChanged: (value) {
-                      setState(() {
-                        dropdownValue = value!;
-                      });
+                      if (value != null && areaItems.contains(value)) {
+                        setState(() {
+                          dropdownValue = value;
+                        });
+                      }
                     },
 
                     buttonStyleData: ButtonStyleData(
@@ -153,7 +156,11 @@ class _InputAreaPageState extends State<InputAreaPage> {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32),
-                child: Textbtn(text: "완료", pageRoute: ListPage()),
+                child: SaveBtn(
+                  text: "완료",
+                  info: dropdownValue,
+                  pageRoute: ListPage(),
+                ),
               ),
             ),
           ],

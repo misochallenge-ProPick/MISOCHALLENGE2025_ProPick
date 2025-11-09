@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:propick/page/inputAge_page.dart';
 import 'package:propick/page/inputArea_page.dart';
 import 'package:propick/util/TextBtn.dart';
+import 'package:propick/util/TextBtn_save.dart';
+import 'package:provider/provider.dart';
+import '/providers/item_provider.dart';
 
 class InputTypePage extends StatefulWidget {
   const InputTypePage({super.key});
@@ -17,7 +20,7 @@ final typeList = [
   ["창업", "창업", "창업"],
   ["창업", "창업", "창업"],
 ];
-List<dynamic> clickedtype = [];
+List<String> clickedtype = [];
 
 class _InputTypePageState extends State<InputTypePage> {
   @override
@@ -79,8 +82,10 @@ class _InputTypePageState extends State<InputTypePage> {
                                 : false,
                             onTap: () {
                               setState(() {
-                                if(clickedtype.contains(text)) clickedtype.remove(text);
-                                else clickedtype.add(text);
+                                if (clickedtype.contains(text))
+                                  clickedtype.remove(text);
+                                else
+                                  clickedtype.add(text);
                               });
                             },
                           ),
@@ -99,12 +104,38 @@ class _InputTypePageState extends State<InputTypePage> {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32),
-                child: Textbtn(text: "다음", pageRoute: InputAreaPage()),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    minimumSize: Size(350, 64),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: Color.fromARGB(255, 34, 92, 168),
+                  ),
+                  onPressed: () {
+                    Provider.of<ItemProvider>(
+                      context,
+                      listen: false,
+                    ).setTypeInfo(clickedtype);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => InputAreaPage()),
+                    );
+                  },
+                  child: Text(
+                    "다음",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
         ),
-
       ),
     );
   }
