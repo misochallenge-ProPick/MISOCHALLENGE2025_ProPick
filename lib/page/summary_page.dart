@@ -16,7 +16,6 @@ class SummaryPage extends StatefulWidget {
 class _SummaryPageState extends State<SummaryPage> {
   String username = "장담모한다";
 
-
   Future<Map<String, String>> fetchServiceDetail() async {
     final url = Uri.parse(
       "https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfaredetailedV001?serviceKey=b5685498584d0bc46ca1924ad0f65950f62af6ab3906cc103498bc6fdd5edfff&callTp=D&servId=${widget.servId}",
@@ -46,7 +45,12 @@ class _SummaryPageState extends State<SummaryPage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            backgroundColor: Colors.white,
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 34, 92, 168),
+              ),
+            ),
           );
         }
 
@@ -84,15 +88,24 @@ class _SummaryPageState extends State<SummaryPage> {
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
-                    Image.asset('assets/images/propick_doorimage.png', scale: 2),
+                    Image.asset(
+                      'assets/images/propick_doorimage.png',
+                      scale: 2,
+                    ),
                     SizedBox(height: 40),
                     Text(
                       "$username님을 위한",
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text(
                       "AI 혜택 요약 정리",
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     TextButton(
                       onPressed: () {},
@@ -124,7 +137,7 @@ class _SummaryPageState extends State<SummaryPage> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                
+
                             SizedBox(height: 12),
                             Text(
                               summaryText,
@@ -138,9 +151,9 @@ class _SummaryPageState extends State<SummaryPage> {
                         ),
                       ),
                     ),
-                
+
                     SizedBox(height: 50),
-                
+
                     Align(
                       child: Textbtn(
                         text: "서류 작성하러 가기 →",

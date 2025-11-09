@@ -37,7 +37,6 @@ class _APIDataPage extends State<APIDataPage> {
         context,
         MaterialPageRoute(builder: (context) => MainPage()),
       );
-
     } else {
       throw Exception('API 요청 실패: ${response.statusCode}');
     }
@@ -56,7 +55,6 @@ class _APIDataPage extends State<APIDataPage> {
       final jurOrgNm = item.getElement('jurOrgNm')?.text.trim();
       final rprsCtadr = item.getElement('rprsCtadr')?.text.trim();
       final servId = item.getElement('servId')?.text.trim();
-      
 
       if (jurMnofNm != null &&
           lifeArray != null &&
@@ -70,7 +68,14 @@ class _APIDataPage extends State<APIDataPage> {
           jurOrgNm.isNotEmpty &&
           rprsCtadr.isNotEmpty &&
           servId.isNotEmpty) {
-        results.add([jurMnofNm, lifeArray, servNm, jurOrgNm, rprsCtadr, servId]);
+        results.add([
+          jurMnofNm,
+          lifeArray,
+          servNm,
+          jurOrgNm,
+          rprsCtadr,
+          servId,
+        ]);
       }
     }
 
@@ -81,7 +86,11 @@ class _APIDataPage extends State<APIDataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(child: CircularProgressIndicator()),
+      body: Center(
+        child: CircularProgressIndicator(
+          color: Color.fromARGB(255, 34, 92, 168),
+        ),
+      ),
     );
   }
 }
