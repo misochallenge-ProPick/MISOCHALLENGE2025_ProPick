@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:propick/page/inputAge_page.dart';
 import 'package:propick/page/inputArea_page.dart';
-import 'package:propick/util/TextBtn.dart';
-import 'package:propick/util/TextBtn_save.dart';
 import 'package:provider/provider.dart';
 import '/providers/item_provider.dart';
 

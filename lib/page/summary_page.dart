@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:propick/page/list_page.dart';
-import 'package:propick/page/main_page.dart';
 import 'package:propick/util/BottmAppbar.dart';
-import 'package:propick/util/TextBtn.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 import 'package:xml/xml.dart';
 
 class SummaryPage extends StatefulWidget {
-  SummaryPage({super.key, required this.servId});
+  SummaryPage({super.key, required this.servId, required this.servDtlLink});
 
+  String servDtlLink;
   String servId;
 
   @override
@@ -146,9 +145,29 @@ class _SummaryPageState extends State<SummaryPage> {
                   SizedBox(height: 50),
 
                   Align(
-                    child: Textbtn(
-                      text: "서류 작성하러 가기 →",
-                      pageRoute: SummaryPage(servId: ""),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        minimumSize: Size(350, 64),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        backgroundColor: Color.fromARGB(255, 34, 92, 168),
+                      ),
+                      onPressed: () async {
+                        if (await canLaunchUrl(Uri.parse(widget.servDtlLink))) {
+                          await launchUrl(Uri.parse(widget.servDtlLink));
+                        } else {
+                          print("연결이 되지 않습니다.");
+                        }
+                      },
+                      child: Text(
+                        "서류 작성하러 가기 →",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ],

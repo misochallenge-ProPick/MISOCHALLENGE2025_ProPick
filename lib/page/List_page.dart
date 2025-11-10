@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:propick/page/main_page.dart';
 import 'package:propick/page/summary_page.dart';
 import 'package:propick/util/BottmAppbar.dart';
 import 'package:provider/provider.dart';
@@ -172,6 +171,7 @@ class ListPage extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) => SummaryPage(
                                           servId: items[index][5],
+                                          servDtlLink : items[index][6],
                                         ),
                                       ),
                                     );
