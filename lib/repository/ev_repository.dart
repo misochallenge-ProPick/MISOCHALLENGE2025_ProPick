@@ -28,16 +28,16 @@ class _APIDataPage extends State<APIDataPage> {
 
     switch (infos[0]) {
       case "1":
-        setState(() => age = "청소년");
+        age = "청소년";
         break;
       case "2":
-        setState(() => age = "청년");
+        age = "청년";
         break;
       case "3":
-        setState(() => age = "중장년");
+        age = "중장년";
         break;
       case "4":
-        setState(() => age = "노년");
+        age = "노년";
         break;
     }
 
@@ -83,6 +83,10 @@ class _APIDataPage extends State<APIDataPage> {
       final servId = item.getElement('servId')?.text.trim();
       final servDtlLink = item.getElement('servDtlLink')?.text.trim();
       final intrsThemaArray = item.getElement('intrsThemaArray')?.text.trim();
+      final trgterIndvdlArray = item
+          .getElement('trgterIndvdlArray')
+          ?.text
+          .trim();
 
       if (jurMnofNm != null &&
           lifeArray != null &&
@@ -93,7 +97,8 @@ class _APIDataPage extends State<APIDataPage> {
           servId != null &&
           servDtlLink != null &&
           intrsThemaArray != null &&
-          typeinfos.contains(intrsThemaArray) &&
+          (typeinfos.contains(intrsThemaArray) ||
+              typeinfos.contains(trgterIndvdlArray)) &&
           jurMnofNm.isNotEmpty &&
           lifeArray.isNotEmpty &&
           servNm.isNotEmpty &&
