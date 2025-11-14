@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:propick/page/main_page.dart';
 import 'package:propick/repository/ev_repository.dart';
 import 'dart:async';
 
@@ -16,7 +17,7 @@ class _FirstLoadingPageState extends State<FirstLoadingPage> {
     Timer(Duration(seconds: 3), () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => APIDataPage()),
+        MaterialPageRoute(builder: (context) => MainPage()),
       );
     });
   }

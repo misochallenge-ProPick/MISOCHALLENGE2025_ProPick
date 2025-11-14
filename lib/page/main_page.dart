@@ -6,7 +6,7 @@ import 'package:propick/util/TextBtn.dart';
 class MainPage extends StatelessWidget {
   MainPage({super.key});
 
-  String username = "장담모한다";
+  String username = "이현민";
 
   @override
   Widget build(BuildContext context) {

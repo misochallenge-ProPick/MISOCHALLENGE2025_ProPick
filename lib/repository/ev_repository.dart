@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:propick/page/main_page.dart';
+import 'package:propick/page/List_page.dart';
 import 'package:xml/xml.dart';
 import 'package:provider/provider.dart';
 import '/providers/item_provider.dart';
@@ -13,9 +13,36 @@ class APIDataPage extends StatefulWidget {
 }
 
 class _APIDataPage extends State<APIDataPage> {
+  late List infos, typeinfos;
+  String age = "?";
+  bool isDataLoaded = false;
+
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (isDataLoaded) return;
+
+    infos = Provider.of<ItemProvider>(context).infos;
+    typeinfos = Provider.of<ItemProvider>(context).typeInfo;
+
+    switch (infos[0]) {
+      case "1":
+        setState(() => age = "청소년");
+        break;
+      case "2":
+        setState(() => age = "청년");
+        break;
+      case "3":
+        setState(() => age = "중장년");
+        break;
+      case "4":
+        setState(() => age = "노년");
+        break;
+    }
+
+    isDataLoaded = true;
+
     fetchWelfareDetail();
   }
 
@@ -24,7 +51,7 @@ class _APIDataPage extends State<APIDataPage> {
   // 공공데이터 상세 API 호출
   Future<void> fetchWelfareDetail() async {
     final url = Uri.parse(
-      'https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001?serviceKey=b5685498584d0bc46ca1924ad0f65950f62af6ab3906cc103498bc6fdd5edfff&callTp=L&pageNo=1&numOfRows=300&srchKeyCode=003',
+      'https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001?serviceKey=b5685498584d0bc46ca1924ad0f65950f62af6ab3906cc103498bc6fdd5edfff&callTp=L&pageNo=1&numOfRows=500&srchKeyCode=003',
     );
 
     final response = await http.get(url);
@@ -34,7 +61,7 @@ class _APIDataPage extends State<APIDataPage> {
       Provider.of<ItemProvider>(context, listen: false).setItems(parsedItems);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MainPage()),
+        MaterialPageRoute(builder: (context) => ListPage()),
       );
     } else {
       throw Exception('API 요청 실패: ${response.statusCode}');
@@ -55,14 +82,18 @@ class _APIDataPage extends State<APIDataPage> {
       final rprsCtadr = item.getElement('rprsCtadr')?.text.trim();
       final servId = item.getElement('servId')?.text.trim();
       final servDtlLink = item.getElement('servDtlLink')?.text.trim();
+      final intrsThemaArray = item.getElement('intrsThemaArray')?.text.trim();
 
       if (jurMnofNm != null &&
           lifeArray != null &&
+          lifeArray.contains(age) &&
           servNm != null &&
           jurOrgNm != null &&
           rprsCtadr != null &&
           servId != null &&
           servDtlLink != null &&
+          intrsThemaArray != null &&
+          typeinfos.contains(intrsThemaArray) &&
           jurMnofNm.isNotEmpty &&
           lifeArray.isNotEmpty &&
           servNm.isNotEmpty &&

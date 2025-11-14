@@ -15,7 +15,7 @@ class SummaryPage extends StatefulWidget {
 }
 
 class _SummaryPageState extends State<SummaryPage> {
-  String username = "장담모한다";
+  String username = "이현민";
 
   Future<Map<String, String>> fetchServiceDetail() async {
     final url = Uri.parse(
@@ -33,7 +33,10 @@ class _SummaryPageState extends State<SummaryPage> {
       final servNm =
           document.findAllElements('servNm').firstOrNull?.text.trim() ?? '';
 
-      return {'servNm': servNm, 'wantedDtl': allDetailText};
+      return {
+        'servNm': servNm,
+        'wantedDtl': allDetailText,
+      };
     } else {
       throw Exception('API 요청 실패: ${response.statusCode}');
     }

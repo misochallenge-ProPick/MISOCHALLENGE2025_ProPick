@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:propick/page/firstLoading_page.dart';
+import 'package:propick/page/main_page.dart';
 import 'package:provider/provider.dart';
 import 'providers/item_provider.dart';
 

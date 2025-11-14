@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:propick/page/list_page.dart';
+import 'package:propick/repository/ev_repository.dart';
 import 'package:propick/util/TextBtn_save.dart';
 
 class InputAreaPage extends StatefulWidget {
@@ -157,7 +158,7 @@ class _InputAreaPageState extends State<InputAreaPage> {
                 child: SaveBtn(
                   text: "완료",
                   info: dropdownValue,
-                  pageRoute: ListPage(),
+                  pageRoute: APIDataPage(),
                 ),
               ),
             ),
