@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:propick/services/apiservice.dart';
 import 'package:propick/util/BottmAppbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
@@ -6,40 +7,52 @@ import 'package:xml/xml.dart';
 
 class SummaryPage extends StatefulWidget {
   SummaryPage({super.key, required this.servId, required this.servDtlLink});
-
   String servDtlLink;
   String servId;
-
   @override
   State<SummaryPage> createState() => _SummaryPageState();
 }
 
 class _SummaryPageState extends State<SummaryPage> {
   String username = "이현민";
-
+  String summarizedText = "";
+  bool isLoading = true;
   Future<Map<String, String>> fetchServiceDetail() async {
     final url = Uri.parse(
       "https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfaredetailedV001?serviceKey=b5685498584d0bc46ca1924ad0f65950f62af6ab3906cc103498bc6fdd5edfff&callTp=D&servId=${widget.servId}",
     );
-
     final response = await http.get(url);
-
     if (response.statusCode == 200) {
       final xmlString = response.body;
       final document = XmlDocument.parse(xmlString);
-
       final allDetailText =
           document.findAllElements('wantedDtl').firstOrNull?.text.trim() ?? '';
       final servNm =
           document.findAllElements('servNm').firstOrNull?.text.trim() ?? '';
-
-      return {
-        'servNm': servNm,
-        'wantedDtl': allDetailText,
-      };
+      return {'servNm': servNm, 'wantedDtl': allDetailText};
     } else {
       throw Exception('API 요청 실패: ${response.statusCode}');
     }
+  }
+
+  void doSummarize(String summarizeText) async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      APIService apiService = APIService();
+      final result = await apiService.summarizeWithGemini(summarizeText);
+      setState(() {
+        summarizedText = result;
+      });
+    } catch (e) {
+      setState(() {
+        summarizedText = "오류 : $e";
+      });
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -57,18 +70,17 @@ class _SummaryPageState extends State<SummaryPage> {
             ),
           );
         }
-
         if (snapshot.hasError) {
           return Scaffold(body: Center(child: Text("데이터를 불러오는 중 오류 발생")));
         }
-
         final data = snapshot.data!;
         final servName = data['servNm'] ?? '';
         final summaryText = data['wantedDtl'] ?? '';
+        
+        if (isLoading) doSummarize(summaryText);
 
         return Scaffold(
           backgroundColor: Colors.white,
-
           appBar: AppBar(
             scrolledUnderElevation: 0,
             toolbarHeight: 80,
@@ -83,7 +95,6 @@ class _SummaryPageState extends State<SummaryPage> {
               ),
             ),
           ),
-
           body: Align(
             alignment: Alignment.center,
             child: SingleChildScrollView(
@@ -130,23 +141,28 @@ class _SummaryPageState extends State<SummaryPage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-
                           SizedBox(height: 12),
-                          Text(
-                            summaryText,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
+                          isLoading
+                              ? SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: CircularProgressIndicator(
+                                    color: Color.fromARGB(255, 34, 92, 168),
+                                  ),
+                                )
+                              : Text(
+                                  summarizedText,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
                         ],
                       ),
                     ),
                   ),
-
                   SizedBox(height: 50),
-
                   Align(
                     child: TextButton(
                       style: TextButton.styleFrom(
@@ -177,7 +193,6 @@ class _SummaryPageState extends State<SummaryPage> {
               ),
             ),
           ),
-
           bottomNavigationBar: PropickBottomAppbar(),
         );
       },

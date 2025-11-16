@@ -14,7 +14,7 @@ class APIDataPage extends StatefulWidget {
 
 class _APIDataPage extends State<APIDataPage> {
   late List infos, typeinfos;
-  String age = "?";
+  String age = "";
   bool isDataLoaded = false;
 
   @override
