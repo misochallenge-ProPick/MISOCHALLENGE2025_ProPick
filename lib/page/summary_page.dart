@@ -6,7 +6,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:xml/xml.dart';
 
 class SummaryPage extends StatefulWidget {
-  SummaryPage({super.key, required this.servId, required this.servDtlLink});
+  const SummaryPage({
+    super.key,
+    required this.servId,
+    required this.servDtlLink,
+  });
   final String servDtlLink;
   final String servId;
 
@@ -32,7 +36,8 @@ class _SummaryPageState extends State<SummaryPage> {
       final document = XmlDocument.parse(xmlString);
       final allDetailText =
           document.findAllElements('wantedDtl').firstOrNull?.text.trim() ?? '';
-      final name = document.findAllElements('servNm').firstOrNull?.text.trim() ?? '';
+      final name =
+          document.findAllElements('servNm').firstOrNull?.text.trim() ?? '';
       return {'servNm': name, 'wantedDtl': allDetailText};
     } else {
       throw Exception('API 요청 실패: ${response.statusCode}');
@@ -54,9 +59,8 @@ class _SummaryPageState extends State<SummaryPage> {
       setState(() {
         summarizedText = "오류: $e";
       });
-    } 
+    }
     setState(() => isLoading = false);
-    
   }
 
   @override
@@ -93,7 +97,10 @@ class _SummaryPageState extends State<SummaryPage> {
               const SizedBox(height: 40),
               Text(
                 "$username님을 위한",
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const Text(
                 "AI 혜택 요약 정리",
@@ -125,7 +132,7 @@ class _SummaryPageState extends State<SummaryPage> {
                       Text(
                         servName,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

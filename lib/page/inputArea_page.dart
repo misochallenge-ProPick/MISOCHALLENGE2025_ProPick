@@ -11,7 +11,7 @@ class InputAreaPage extends StatefulWidget {
   State<InputAreaPage> createState() => _InputAreaPageState();
 }
 
-List<String> areaItems = ["강원특별자치도 양구군", "강원특별자치도 속초시", "경기도 수원특례시"];
+List<String> areaItems = ["강원특별자치도 양구군", "강원특별자치도 속초시", "경기도 수원특례시", "경상도 대구광역시"];
 String? dropdownValue;
 
 class _InputAreaPageState extends State<InputAreaPage> {
