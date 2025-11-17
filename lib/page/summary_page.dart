@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:propick/services/apiservice.dart';
+import 'package:propick/repository/apiservice.dart';
 import 'package:propick/util/BottmAppbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
@@ -20,7 +20,7 @@ class _SummaryPageState extends State<SummaryPage> {
   bool isLoading = true;
   String servName = "";
 
-  // 1️⃣ 서비스 상세 정보 가져오기
+  // 서비스 상세 정보 가져오기
   Future<Map<String, String>> fetchServiceDetail() async {
     final url = Uri.parse(
       "https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfaredetailedV001?serviceKey=b5685498584d0bc46ca1924ad0f65950f62af6ab3906cc103498bc6fdd5edfff&callTp=D&servId=${widget.servId}",
@@ -39,7 +39,7 @@ class _SummaryPageState extends State<SummaryPage> {
     }
   }
 
-  // 2️⃣ 요약 수행
+  // 요약 수행
   Future<void> fetchAndSummarize() async {
     setState(() => isLoading = true);
 
@@ -54,9 +54,9 @@ class _SummaryPageState extends State<SummaryPage> {
       setState(() {
         summarizedText = "오류: $e";
       });
-    } finally {
-      setState(() => isLoading = false);
-    }
+    } 
+    setState(() => isLoading = false);
+    
   }
 
   @override
