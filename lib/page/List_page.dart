@@ -89,10 +89,6 @@ class ListPage extends StatelessWidget {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 30),
-                Text(
-                  "${typeInfos} \n ${infos}"
-                ),
-
               ],
             ),
             SizedBox(height: 36),
