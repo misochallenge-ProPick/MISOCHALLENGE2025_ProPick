@@ -14,6 +14,12 @@ int selectedIndex = -1;
 
 class _InputAgePageState extends State<InputAgePage> {
   @override
+  void initState() {
+    super.initState();
+    selectedIndex = -1;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -66,8 +72,8 @@ class _InputAgePageState extends State<InputAgePage> {
                 padding: const EdgeInsets.symmetric(vertical: 32),
                 child: SaveBtn(
                   text: "다음",
-                  info: (selectedIndex+1).toString(),
-                  pageRoute: InputTypePage()
+                  info: (selectedIndex + 1).toString(),
+                  pageRoute: InputTypePage(),
                 ),
               ),
             ),

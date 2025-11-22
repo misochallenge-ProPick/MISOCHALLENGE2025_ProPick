@@ -1,6 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:propick/page/list_page.dart';
 import 'package:propick/repository/ev_repository.dart';
 import 'package:propick/util/TextBtn_save.dart';
 
@@ -11,10 +10,21 @@ class InputAreaPage extends StatefulWidget {
   State<InputAreaPage> createState() => _InputAreaPageState();
 }
 
-List<String> areaItems = ["강원특별자치도 양구군", "강원특별자치도 속초시", "경기도 수원특례시", "경상도 대구광역시"];
+List<String> areaItems = [
+  "강원특별자치도 양구군",
+  "강원특별자치도 속초시",
+  "경기도 수원특례시",
+  "경상도 대구광역시",
+];
 String? dropdownValue;
 
 class _InputAreaPageState extends State<InputAreaPage> {
+  @override
+  void initState() {
+    super.initState();
+    dropdownValue = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

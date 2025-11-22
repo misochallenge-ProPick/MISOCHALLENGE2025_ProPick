@@ -21,6 +21,12 @@ List<String> clickedtype = [];
 
 class _InputTypePageState extends State<InputTypePage> {
   @override
+  void initState() {
+    super.initState();
+    clickedtype = [];
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
