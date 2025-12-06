@@ -19,7 +19,7 @@ class SummaryPage extends StatefulWidget {
 }
 
 class _SummaryPageState extends State<SummaryPage> {
-  String username = "이현민";
+  String username = "이현준";
   String summarizedText = "";
   bool isLoading = true;
   String servName = "";

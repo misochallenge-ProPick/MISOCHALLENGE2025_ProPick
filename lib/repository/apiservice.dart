@@ -4,7 +4,7 @@ const String apiKey = "AIzaSyByvGD5i-JDtekCKdKJElDCtIBEoz00xk8";
 
 Future<String> doSummarizeText(String text) async {
   final model = GenerativeModel(
-    model: 'gemini-2.5-flash', // 무료 모델
+    model: 'gemini-2.5-flash',
     apiKey: apiKey,
   );
 

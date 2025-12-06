@@ -7,7 +7,7 @@ import '/providers/item_provider.dart';
 class ListPage extends StatelessWidget {
   ListPage({super.key});
 
-  String username = "이현민";
+  String username = "이현준";
 
   @override
   Widget build(BuildContext context) {

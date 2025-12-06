@@ -68,7 +68,7 @@ class _APIDataPage extends State<APIDataPage> {
     }
   }
 
-  // XML에서 특정 태그("lifeArray")의 텍스트 추출 → 리스트로 반환
+  // XML에서 특정 태그의 텍스트 추출 → 리스트로 반환
   List<List<String>> extractTextFromXml(String xmlString) {
     final document = XmlDocument.parse(xmlString);
     final itemElements = document.findAllElements('servList');
