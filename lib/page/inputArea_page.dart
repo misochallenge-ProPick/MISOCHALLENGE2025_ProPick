@@ -15,6 +15,7 @@ List<String> areaItems = [
   "강원특별자치도 속초시",
   "경기도 수원특례시",
   "경상도 대구광역시",
+  "서울특별시 관악구"
 ];
 String? dropdownValue;
 
