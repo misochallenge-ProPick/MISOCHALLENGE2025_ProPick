@@ -97,8 +97,9 @@ class _APIDataPage extends State<APIDataPage> {
           servId != null &&
           servDtlLink != null &&
           intrsThemaArray != null &&
-          (typeinfos.contains(intrsThemaArray) ||
-              typeinfos.contains(trgterIndvdlArray)) &&
+          trgterIndvdlArray != null &&
+          (typeinfos.any((k) => intrsThemaArray.contains(k)) ||
+              typeinfos.any((k) => trgterIndvdlArray.contains(k)) ) &&
           jurMnofNm.isNotEmpty &&
           lifeArray.isNotEmpty &&
           servNm.isNotEmpty &&

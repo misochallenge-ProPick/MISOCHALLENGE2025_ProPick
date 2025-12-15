@@ -48,7 +48,7 @@ class _InputAreaPageState extends State<InputAreaPage> {
             // ),
             child: TweenAnimationBuilder(
               tween: Tween<double>(begin: 0.6, end: 0.99),
-              duration: const Duration(milliseconds: 700),
+              duration: const Duration(milliseconds: 500),
               curve: Curves.easeInOut,
               builder: (context, value, _) {
                 return LinearProgressIndicator(

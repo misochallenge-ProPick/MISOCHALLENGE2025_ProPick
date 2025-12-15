@@ -41,7 +41,7 @@ class _InputAgePageState extends State<InputAgePage> {
             // ),
             child: TweenAnimationBuilder(
               tween: Tween<double>(begin: 0, end: 0.3),
-              duration: const Duration(milliseconds: 700),
+              duration: const Duration(milliseconds: 500),
               curve: Curves.easeInOut,
               builder: (context, value, _) {
                 return LinearProgressIndicator(
