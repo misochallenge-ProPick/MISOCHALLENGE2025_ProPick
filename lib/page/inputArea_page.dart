@@ -39,12 +39,26 @@ class _InputAreaPageState extends State<InputAreaPage> {
           backgroundColor: Colors.white,
           title: SizedBox(
             width: 200,
-            child: LinearProgressIndicator(
-              value: 0.99,
-              backgroundColor: Colors.grey[300],
-              color: Color.fromARGB(255, 34, 92, 168),
-              minHeight: 5.0,
-              borderRadius: BorderRadius.circular(10.0),
+            // child: LinearProgressIndicator(
+            //   value: 0.99,
+            //   backgroundColor: Colors.grey[300],
+            //   color: Color.fromARGB(255, 34, 92, 168),
+            //   minHeight: 5.0,
+            //   borderRadius: BorderRadius.circular(10.0),
+            // ),
+            child: TweenAnimationBuilder(
+              tween: Tween<double>(begin: 0.6, end: 0.99),
+              duration: const Duration(milliseconds: 700),
+              curve: Curves.easeInOut,
+              builder: (context, value, _) {
+                return LinearProgressIndicator(
+                  value: value,
+                  backgroundColor: Colors.grey[300],
+                  color: Color.fromARGB(255, 34, 92, 168),
+                  minHeight: 5.0,
+                  borderRadius: BorderRadius.circular(10.0),
+                );
+              },
             ),
           ),
         ),
