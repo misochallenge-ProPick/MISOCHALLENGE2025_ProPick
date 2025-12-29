@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:propick/repository/apiservice.dart';
 import 'package:propick/util/BottmAppbar.dart';
@@ -73,6 +75,7 @@ class _SummaryPageState extends State<SummaryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
       appBar: AppBar(
         scrolledUnderElevation: 0,
         toolbarHeight: 80,
@@ -86,7 +89,101 @@ class _SummaryPageState extends State<SummaryPage> {
             scale: 1,
           ),
         ),
+        actions: [
+          Padding(
+            padding: EdgeInsetsGeometry.only(right: 20, top: 20),
+            child: GestureDetector(
+              onTap: () {
+                showGeneralDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  barrierLabel: "Dialog",
+                  barrierColor: Colors.black.withOpacity(0.2),
+                  pageBuilder: (context, _, _) {
+                    return Stack(
+                      children: [
+                        IgnorePointer(
+                          ignoring: true,
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                            child: Container(
+                              color: Colors.black.withOpacity(0.1),
+                            ),
+                          ),
+                        ),
+
+                        Center(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: MediaQuery.of(context).size.height * 0.75,
+
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 20,
+                                  spreadRadius: 2,
+                                  offset: Offset(0.5, 0.5),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "챗봇에게 질문하기",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Color.fromARGB(
+                                            255,
+                                            34,
+                                            92,
+                                            168,
+                                          ),
+                                          decoration: TextDecoration.none,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        icon: Icon(Icons.close),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  thickness: 1,
+                                  color: Color(0xFFE8E8E8),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Column(
+                children: [
+                  Image.asset('assets/images/ChatBot2.png', scale: 2),
+                  SizedBox(height: 10),
+                  Transform.translate(
+                    offset: Offset(0, -6),
+                    child: Text('챗봇에게 질문하기', style: TextStyle(fontSize: 10)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
+
       body: Align(
         alignment: Alignment.center,
         child: SingleChildScrollView(

@@ -167,7 +167,7 @@ class ListPage extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) => SummaryPage(
                                           servId: items[index][5],
-                                          servDtlLink : items[index][6],
+                                          servDtlLink: items[index][6],
                                         ),
                                       ),
                                     );
@@ -197,7 +197,7 @@ class ListPage extends StatelessWidget {
           ],
         ),
 
-        bottomNavigationBar: PropickBottomAppbar()
+        bottomNavigationBar: PropickBottomAppbar(),
       ),
     );
   }
