@@ -15,7 +15,7 @@ List<String> areaItems = [
   "강원특별자치도 속초시",
   "경기도 수원특례시",
   "경상도 대구광역시",
-  "서울특별시 관악구"
+  "서울특별시 관악구",
 ];
 String? dropdownValue;
 
@@ -28,6 +28,10 @@ class _InputAreaPageState extends State<InputAreaPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final baseFontSize = screenWidth / 17; // 반응형 기준 폰트 크기
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -35,10 +39,10 @@ class _InputAreaPageState extends State<InputAreaPage> {
 
         appBar: AppBar(
           centerTitle: true,
-          toolbarHeight: 80,
+          toolbarHeight: screenHeight * 0.1,
           backgroundColor: Colors.white,
           title: SizedBox(
-            width: 200,
+            width: screenWidth * 0.5 > 300 ? 300 : screenWidth * 0.5,
             // child: LinearProgressIndicator(
             //   value: 0.99,
             //   backgroundColor: Colors.grey[300],
@@ -65,111 +69,161 @@ class _InputAreaPageState extends State<InputAreaPage> {
 
         body: Column(
           children: [
-            SizedBox(height: 18),
+            SizedBox(height: screenHeight * 0.022),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "이제 마지막이에요!",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.05,
+                    ),
+                    child: Text(
+                      "이제 마지막이에요!",
+                      style: TextStyle(
+                        fontSize: baseFontSize * 1,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  Text(
-                    "회원님은 어느 지역에 거주하시나요?",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.05,
+                    ),
+                    child: Text(
+                      "회원님은 어느 지역에 거주하시나요?",
+                      style: TextStyle(
+                        fontSize: baseFontSize * 1,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 32),
+            SizedBox(height: screenHeight * 0.04),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: Center(
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton2(
-                    isExpanded: true,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-
-                    value: dropdownValue,
-                    hint: Text(
-                      "거주 지역을 입력하세요",
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 500, minWidth: 0),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton2(
+                      isExpanded: true,
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0x99999999),
+                        color: Colors.black,
+                        fontSize: baseFontSize * 1.15,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ),
 
-                    items: areaItems.map((value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+                      value: dropdownValue,
+                      hint: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.02,
                         ),
-                      );
-                    }).toList(),
+                        child: Text(
+                          "거주 지역을 선택하세요",
+                          style: TextStyle(
+                            fontSize: baseFontSize * 1,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0x99999999),
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
 
-                    selectedItemBuilder: (BuildContext context) {
-                      return areaItems.map((value) {
-                        return Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            value,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                      items: areaItems.map((value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.02,
+                            ),
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                fontSize: baseFontSize * 0.7,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         );
-                      }).toList();
-                    },
+                      }).toList(),
 
-                    onChanged: (value) {
-                      if (value != null && areaItems.contains(value)) {
-                        setState(() {
-                          dropdownValue = value;
-                        });
-                      }
-                    },
+                      selectedItemBuilder: (BuildContext context) {
+                        return areaItems.map((value) {
+                          return Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.02,
+                              ),
+                              child: Text(
+                                value,
+                                style: TextStyle(
+                                  fontSize: baseFontSize * 1,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          );
+                        }).toList();
+                      },
 
-                    buttonStyleData: ButtonStyleData(
-                      height: 64,
-                      width: 350,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Color(0x99999999)),
-                        color: Colors.white,
+                      onChanged: (value) {
+                        if (value != null && areaItems.contains(value)) {
+                          setState(() {
+                            dropdownValue = value;
+                          });
+                        }
+                      },
+
+                      buttonStyleData: ButtonStyleData(
+                        height: screenHeight * 0.08 > 64
+                            ? screenHeight * 0.08
+                            : 64,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.04,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Color(0x99999999)),
+                          color: Colors.white,
+                        ),
+                      ),
+
+                      iconStyleData: IconStyleData(
+                        icon: Icon(Icons.keyboard_arrow_down_rounded),
+                        iconEnabledColor: Colors.black,
+                        iconSize: screenWidth * 0.08,
+                      ),
+
+                      dropdownStyleData: DropdownStyleData(
+                        elevation: 0,
+                        maxHeight: screenHeight * 0.53,
+                        offset: Offset(0, -16),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: Color(0x99999999),
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                      ),
+                      menuItemStyleData: MenuItemStyleData(
+                        height: screenHeight * 0.046,
                       ),
                     ),
-
-                    iconStyleData: IconStyleData(
-                      icon: Icon(Icons.keyboard_arrow_down_rounded),
-                      iconEnabledColor: Colors.black,
-                      iconSize: 32,
-                    ),
-
-                    dropdownStyleData: DropdownStyleData(
-                      elevation: 0,
-                      maxHeight: 427,
-                      offset: Offset(0, -16),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Color(0x99999999)),
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                    ),
-                    menuItemStyleData: MenuItemStyleData(height: 37),
                   ),
                 ),
               ),
@@ -179,7 +233,7 @@ class _InputAreaPageState extends State<InputAreaPage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.04),
                 child: SaveBtn(
                   text: "완료",
                   info: dropdownValue,

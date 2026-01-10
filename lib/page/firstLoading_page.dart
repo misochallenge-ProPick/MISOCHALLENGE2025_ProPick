@@ -24,12 +24,19 @@ class _FirstLoadingPageState extends State<FirstLoadingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Center(
-          child: Image.asset('assets/images/propick_logo_2x.png', scale: 2),
+          child: Image.asset(
+            'assets/images/propick_logo_2x.png',
+            scale: 2,
+            width: screenWidth * 0.6 > 300 ? 300 : screenWidth * 0.6,
+          ),
         ),
       ),
     );

@@ -16,26 +16,41 @@ class SaveBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        minimumSize: Size(350, 64),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        backgroundColor: Color.fromARGB(255, 34, 92, 168),
-      ),
-      onPressed: () {
-        Provider.of<ItemProvider>(context, listen: false).addInfos(info);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final baseFontSize = screenWidth / 17; // 반응형 기준 폰트 크기
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => pageRoute),
-        );
-      },
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 500, minWidth: 0),
+      child: SizedBox(
+        width: screenWidth * 0.9 > 500 ? 500 : screenWidth * 0.9,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            minimumSize: Size(
+              0,
+              screenHeight * 0.08 > 64 ? screenHeight * 0.08 : 64,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            backgroundColor: Color.fromARGB(255, 34, 92, 168),
+          ),
+          onPressed: () {
+            Provider.of<ItemProvider>(context, listen: false).addInfos(info);
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => pageRoute),
+            );
+          },
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: baseFontSize * 1,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );

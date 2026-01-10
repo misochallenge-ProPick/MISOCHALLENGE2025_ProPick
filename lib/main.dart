@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:propick/page/Login_page.dart';
 import 'package:propick/page/firstLoading_page.dart';
-import 'package:propick/page/main_page.dart';
-import 'package:propick/page/summary_page.dart';
 import 'package:provider/provider.dart';
 import 'providers/item_provider.dart';
 
@@ -25,6 +22,9 @@ class MyWidget extends StatefulWidget {
 class _MyWidgetState extends State<MyWidget> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: FirstLoadingPage());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: FirstLoadingPage(),
+    );
   }
 }

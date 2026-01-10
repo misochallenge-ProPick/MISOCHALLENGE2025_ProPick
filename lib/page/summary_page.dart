@@ -73,17 +73,24 @@ class _SummaryPageState extends State<SummaryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final textScaleFactor = MediaQuery.of(
+      context,
+    ).textScaleFactor.clamp(0.8, 1.2);
+    final baseFontSize = screenWidth / 17; // 반응형 기준 폰트 크기
+
     return Scaffold(
       backgroundColor: Colors.white,
 
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        toolbarHeight: 80,
+        toolbarHeight: screenHeight * 0.1,
         backgroundColor: Colors.white,
         elevation: 0,
-        leadingWidth: 70,
+        leadingWidth: screenWidth * 0.18,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 16),
+          padding: EdgeInsets.only(left: screenWidth * 0.04),
           child: Image.asset(
             'assets/images/propick_logo_2x_black.png',
             scale: 1,
@@ -91,12 +98,15 @@ class _SummaryPageState extends State<SummaryPage> {
         ),
         actions: [
           Padding(
-            padding: EdgeInsetsGeometry.only(right: 20, top: 20),
+            padding: EdgeInsets.only(
+              right: screenWidth * 0.05,
+              top: screenHeight * 0.025,
+            ),
             child: GestureDetector(
               onTap: () {
                 showGeneralDialog(
                   context: context,
-                  barrierDismissible: true,
+                  barrierDismissible: false,
                   barrierLabel: "Dialog",
                   barrierColor: Colors.black.withOpacity(0.2),
                   pageBuilder: (context, _, _) {
@@ -114,8 +124,8 @@ class _SummaryPageState extends State<SummaryPage> {
 
                         Center(
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: MediaQuery.of(context).size.height * 0.75,
+                            width: screenWidth * 0.8,
+                            height: screenHeight * 0.75,
 
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -132,14 +142,19 @@ class _SummaryPageState extends State<SummaryPage> {
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+                                  padding: EdgeInsets.only(
+                                    left: screenWidth * 0.05,
+                                    right: screenWidth * 0.05,
+                                    top: screenHeight * 0.012,
+                                  ),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         "챗봇에게 질문하기",
                                         style: TextStyle(
-                                          fontSize: 14,
+                                          fontSize: 14 * textScaleFactor,
                                           color: Color.fromARGB(
                                             255,
                                             34,
@@ -159,7 +174,7 @@ class _SummaryPageState extends State<SummaryPage> {
                                 const Divider(
                                   thickness: 1,
                                   color: Color(0xFFE8E8E8),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -172,10 +187,13 @@ class _SummaryPageState extends State<SummaryPage> {
               child: Column(
                 children: [
                   Image.asset('assets/images/ChatBot2.png', scale: 2),
-                  SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.012),
                   Transform.translate(
                     offset: Offset(0, -6),
-                    child: Text('챗봇에게 질문하기', style: TextStyle(fontSize: 10)),
+                    child: Text(
+                      '챗봇에게 질문하기',
+                      style: TextStyle(fontSize: 10 * textScaleFactor),
+                    ),
                   ),
                 ],
               ),
@@ -191,92 +209,138 @@ class _SummaryPageState extends State<SummaryPage> {
           child: Column(
             children: [
               Image.asset('assets/images/propick_doorimage.png', scale: 2),
-              const SizedBox(height: 40),
-              Text(
-                "$username님을 위한",
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+              SizedBox(height: screenHeight * 0.05),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                child: Text(
+                  "$username님을 위한",
+                  style: TextStyle(
+                    fontSize: baseFontSize * 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              const Text(
-                "AI 혜택 요약 정리",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                child: Text(
+                  "AI 혜택 요약 정리",
+                  style: TextStyle(
+                    fontSize: baseFontSize * 1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               TextButton(
                 onPressed: () {},
                 child: Text(
                   "요약은 어떻게 이루어지나요?",
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: baseFontSize * 0.5,
                     fontWeight: FontWeight.w300,
                     color: Colors.black.withAlpha(200),
                   ),
                 ),
               ),
-              const SizedBox(height: 50),
-              Container(
-                width: 350,
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: const Color(0x99999999)),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      Text(
-                        servName,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      isLoading
-                          ? const SizedBox(
-                              width: 25,
-                              height: 25,
-                              child: CircularProgressIndicator(
-                                color: Color.fromARGB(255, 34, 92, 168),
-                              ),
-                            )
-                          : Text(
-                              summarizedText,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
+              SizedBox(height: screenHeight * 0.06),
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 500, minWidth: 0),
+                child: Container(
+                  width: screenWidth * 0.9 > 500 ? 500 : screenWidth * 0.9,
+                  padding: EdgeInsets.all(screenWidth * 0.06),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: const Color(0x99999999),
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.02,
+                          ),
+                          child: Text(
+                            servName,
+                            style: TextStyle(
+                              fontSize: baseFontSize * 0.8,
+                              fontWeight: FontWeight.bold,
                             ),
-                    ],
+                            textAlign: TextAlign.center,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.015),
+                        isLoading
+                            ? SizedBox(
+                                width: 25,
+                                height: 25,
+                                child: CircularProgressIndicator(
+                                  color: Color.fromARGB(255, 34, 92, 168),
+                                ),
+                              )
+                            : Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: screenWidth * 0.02,
+                                ),
+                                child: Text(
+                                  summarizedText,
+                                  style: TextStyle(
+                                    fontSize: baseFontSize * 0.6,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 15,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 50),
+              SizedBox(height: screenHeight * 0.06),
               Align(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    minimumSize: const Size(350, 64),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    backgroundColor: const Color.fromARGB(255, 34, 92, 168),
-                  ),
-                  onPressed: () async {
-                    if (await canLaunchUrl(Uri.parse(widget.servDtlLink))) {
-                      await launchUrl(Uri.parse(widget.servDtlLink));
-                    } else {
-                      print("연결이 되지 않습니다.");
-                    }
-                  },
-                  child: const Text(
-                    "서류 작성하러 가기 →",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 500, minWidth: 0),
+                  child: SizedBox(
+                    width: screenWidth * 0.9 > 500 ? 500 : screenWidth * 0.9,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        minimumSize: Size(
+                          0,
+                          screenHeight * 0.08 > 64 ? screenHeight * 0.08 : 64,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        backgroundColor: const Color.fromARGB(255, 34, 92, 168),
+                      ),
+                      onPressed: () async {
+                        if (await canLaunchUrl(Uri.parse(widget.servDtlLink))) {
+                          await launchUrl(Uri.parse(widget.servDtlLink));
+                        } else {
+                          print("연결이 되지 않습니다.");
+                        }
+                      },
+                      child: Text(
+                        "서류 작성하러 가기 →",
+                        style: TextStyle(
+                          fontSize: baseFontSize * 1,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),

@@ -21,6 +21,10 @@ class _InputAgePageState extends State<InputAgePage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final baseFontSize = screenWidth / 17; // 반응형 기준 폰트 크기
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -28,10 +32,10 @@ class _InputAgePageState extends State<InputAgePage> {
         // App Bar
         appBar: AppBar(
           centerTitle: true,
-          toolbarHeight: 80,
+          toolbarHeight: screenHeight * 0.1,
           backgroundColor: Colors.white,
           title: SizedBox(
-            width: 200,
+            width: screenWidth * 0.5 > 300 ? 300 : screenWidth * 0.5,
             // child: LinearProgressIndicator(
             //   value: 0.3,
             //   backgroundColor: Colors.grey[300],
@@ -56,42 +60,49 @@ class _InputAgePageState extends State<InputAgePage> {
           ),
         ),
 
-        body: Column(
-          children: [
-            SizedBox(height: 18),
-            Center(
-              child: Text(
-                "회원님의 연령대를 알려주세요!",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 67),
-
-            for (int i = 0; i < ageText.length; i++) ...[
-              AgeButton(
-                ageText: ageText[i],
-                isSelected: selectedIndex == i,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = i;
-                  });
-                },
-              ),
-              SizedBox(height: 20),
-            ],
-            Spacer(), // 맨 아래로 밀어줌
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32),
-                child: SaveBtn(
-                  text: "다음",
-                  info: (selectedIndex + 1).toString(),
-                  pageRoute: InputTypePage(),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+          child: Column(
+            children: [
+              SizedBox(height: screenHeight * 0.022),
+              Center(
+                child: Text(
+                  "회원님의 연령대를 알려주세요!",
+                  style: TextStyle(
+                    fontSize: baseFontSize * 1.1,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: screenHeight * 0.083),
+
+              for (int i = 0; i < ageText.length; i++) ...[
+                AgeButton(
+                  ageText: ageText[i],
+                  isSelected: selectedIndex == i,
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = i;
+                    });
+                  },
+                ),
+                SizedBox(height: screenHeight * 0.025),
+              ],
+              Spacer(), // 맨 아래로 밀어줌
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.04),
+                  child: SaveBtn(
+                    text: "다음",
+                    info: (selectedIndex + 1).toString(),
+                    pageRoute: InputTypePage(),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -113,6 +124,10 @@ class AgeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final baseFontSize = screenWidth / 17; // 반응형 기준 폰트 크기
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: isSelected
@@ -120,22 +135,28 @@ class AgeButton extends StatelessWidget {
             : Colors.white,
         elevation: 0,
         side: BorderSide(width: 1, color: Color(0x99999999)),
-        minimumSize: Size(350, 64),
+        minimumSize: Size(
+          screenWidth * 0.9 > 500 ? 500 : screenWidth * 0.9,
+          screenHeight * 0.08 > 64 ? screenHeight * 0.08 : 64,
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
       ),
       onPressed: onTap,
 
-      child: SizedBox(
-        width: 330,
-        child: Align(
-          alignment: Alignment.centerLeft,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
           child: Text(
             ageText,
             style: TextStyle(
               color: isSelected ? Colors.white : Colors.black,
-              fontSize: 20,
+              fontSize: baseFontSize * 1,
               fontWeight: FontWeight.w500,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ),

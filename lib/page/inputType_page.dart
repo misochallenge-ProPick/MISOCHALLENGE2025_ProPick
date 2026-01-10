@@ -28,6 +28,13 @@ class _InputTypePageState extends State<InputTypePage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final textScaleFactor = MediaQuery.of(
+      context,
+    ).textScaleFactor.clamp(0.8, 1.2);
+    final baseFontSize = screenWidth / 17; // 반응형 기준 폰트 크기
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -35,10 +42,10 @@ class _InputTypePageState extends State<InputTypePage> {
         // App Bar
         appBar: AppBar(
           centerTitle: true,
-          toolbarHeight: 80,
+          toolbarHeight: screenHeight * 0.1,
           backgroundColor: Colors.white,
           title: SizedBox(
-            width: 200,
+            width: screenWidth * 0.5 > 300 ? 300 : screenWidth * 0.5,
             // child: LinearProgressIndicator(
             //   value: 0.7,
             //   backgroundColor: Colors.grey[300],
@@ -65,51 +72,67 @@ class _InputTypePageState extends State<InputTypePage> {
 
         body: Column(
           children: [
-            SizedBox(height: 18),
+            SizedBox(height: screenHeight * 0.022),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "회원님은 어떤 유형을 선호하시나요?",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.05,
+                    ),
+                    child: Text(
+                      "회원님은 어떤 유형을 선호하시나요?",
+                      style: TextStyle(
+                        fontSize: baseFontSize * 1.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  SizedBox(height: 6),
+                  SizedBox(height: screenHeight * 0.007),
                   Text(
                     "(중복가능)",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: baseFontSize * 1,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 35),
+            SizedBox(height: screenHeight * 0.043),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: Column(
                 children: [
                   for (var row in typeList) ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        for (var text in row) ...[
-                          TypeButton(
-                            typeText: text,
-                            isSelected: clickedtype.contains(text)
-                                ? true
-                                : false,
-                            onTap: () {
-                              setState(() {
-                                if (clickedtype.contains(text))
-                                  clickedtype.remove(text);
-                                else
-                                  clickedtype.add(text);
-                              });
-                            },
-                          ),
-                          SizedBox(width: 12),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: screenHeight * 0.015,
+                      ),
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: screenWidth * 0.02,
+                        runSpacing: screenHeight * 0.015,
+                        children: [
+                          for (var text in row)
+                            TypeButton(
+                              typeText: text,
+                              isSelected: clickedtype.contains(text)
+                                  ? true
+                                  : false,
+                              onTap: () {
+                                setState(() {
+                                  if (clickedtype.contains(text))
+                                    clickedtype.remove(text);
+                                  else
+                                    clickedtype.add(text);
+                                });
+                              },
+                            ),
                         ],
-                        SizedBox(height: 50),
-                      ],
+                      ),
                     ),
                   ],
                 ],
@@ -120,32 +143,43 @@ class _InputTypePageState extends State<InputTypePage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32),
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    minimumSize: Size(350, 64),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    backgroundColor: Color.fromARGB(255, 34, 92, 168),
-                  ),
-                  onPressed: () {
-                    Provider.of<ItemProvider>(
-                      context,
-                      listen: false,
-                    ).setTypeInfo(clickedtype);
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.04),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 500, minWidth: 0),
+                  child: SizedBox(
+                    width: screenWidth * 0.9 > 500 ? 500 : screenWidth * 0.9,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        minimumSize: Size(
+                          0,
+                          screenHeight * 0.08 > 64 ? screenHeight * 0.08 : 64,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        backgroundColor: Color.fromARGB(255, 34, 92, 168),
+                      ),
+                      onPressed: () {
+                        Provider.of<ItemProvider>(
+                          context,
+                          listen: false,
+                        ).setTypeInfo(clickedtype);
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => InputAreaPage()),
-                    );
-                  },
-                  child: Text(
-                    "다음",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InputAreaPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "다음",
+                        style: TextStyle(
+                          fontSize: baseFontSize * 1.15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -171,6 +205,13 @@ class TypeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final textScaleFactor = MediaQuery.of(
+      context,
+    ).textScaleFactor.clamp(0.8, 1.2);
+    final baseFontSize = screenWidth / 17; // 반응형 기준 폰트 크기
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: isSelected
@@ -178,15 +219,26 @@ class TypeButton extends StatelessWidget {
             : Colors.white,
         elevation: 0,
         side: BorderSide(width: 1, color: Color(0x99999999)),
-        minimumSize: Size(108, 44),
+        minimumSize: Size(
+          screenWidth * 0.27 > 150
+              ? 150
+              : (screenWidth * 0.27 < 90 ? 90 : screenWidth * 0.27),
+          screenHeight * 0.055 < 40 ? 40 : screenHeight * 0.055,
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: onTap,
-      child: Text(
-        typeText,
-        style: TextStyle(
-          color: isSelected ? Colors.white : Colors.black,
-          fontSize: 12,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 4),
+        child: Text(
+          typeText,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black,
+            fontSize: baseFontSize * 0.6,
+          ),
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
     );
