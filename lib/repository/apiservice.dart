@@ -1,6 +1,6 @@
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-const String apiKey = "AIzaSyByvGD5i-JDtekCKdKJElDCtIBEoz00xk8";
+const String apiKey = "AIzaSyCq2h0Ob_GCYHkIPnpsKvfkLiszijhJ_b4";
 
 Future<String> doSummarizeText(String text) async {
   final model = GenerativeModel(
@@ -34,4 +34,29 @@ Future<String> doSummarizeText(String text) async {
   ]);
 
   return response.text ?? "요약 실패";
+}
+
+/// 복지 전체 텍스트와 사용자 질문을 함께 AI에 보내고 답변을 받습니다.
+Future<String> askAiAboutWelfare(String welfareFullText, String userQuestion) async {
+  final model = GenerativeModel(
+    model: 'gemini-2.5-flash',
+    apiKey: apiKey,
+  );
+
+  final response = await model.generateContent([
+    Content.text("""
+다음은 복지 제도/서비스에 대한 전체 상세 내용입니다:
+
+---
+$welfareFullText
+---
+
+사용자가 다음과 같이 질문했습니다:
+"$userQuestion"
+
+[규칙] 3문장 이내로 짧게 답변. 불필요한 서두·인사 생략. 핵심만 단호하고 명확하게. 내용에 없으면 "해당 내용에 없습니다"라고만 답변.
+""")
+  ]);
+
+  return response.text ?? "답변을 생성하지 못했습니다.";
 }

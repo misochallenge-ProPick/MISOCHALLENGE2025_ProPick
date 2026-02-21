@@ -228,18 +228,15 @@ class TypeButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: onTap,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4),
-        child: Text(
-          typeText,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-            fontSize: baseFontSize * 0.6,
-          ),
-          textAlign: TextAlign.center,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+      child: Text(
+        typeText,
+        style: TextStyle(
+          color: isSelected ? Colors.white : Colors.black,
+          fontSize: baseFontSize * 0.6,
         ),
+        textAlign: TextAlign.center,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

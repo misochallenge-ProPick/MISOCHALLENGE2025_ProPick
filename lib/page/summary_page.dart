@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:propick/repository/apiservice.dart';
 import 'package:propick/util/BottmAppbar.dart';
+import 'package:propick/util/ChatBot.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xml/xml.dart';
@@ -23,6 +24,7 @@ class SummaryPage extends StatefulWidget {
 class _SummaryPageState extends State<SummaryPage> {
   String username = "이현준";
   String summarizedText = "";
+  String welfareFullText = "";
   bool isLoading = true;
   String servName = "";
 
@@ -53,8 +55,10 @@ class _SummaryPageState extends State<SummaryPage> {
     try {
       final data = await fetchServiceDetail();
       servName = data['servNm'] ?? '';
-      final summary = await doSummarizeText(data['wantedDtl'] ?? '');
+      final fullText = data['wantedDtl'] ?? '';
+      final summary = await doSummarizeText(fullText);
       setState(() {
+        welfareFullText = fullText;
         summarizedText = summary;
       });
     } catch (e) {
@@ -123,24 +127,25 @@ class _SummaryPageState extends State<SummaryPage> {
                         ),
 
                         Center(
-                          child: Container(
-                            width: screenWidth * 0.8,
-                            height: screenHeight * 0.75,
-
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 20,
-                                  spreadRadius: 2,
-                                  offset: Offset(0.5, 0.5),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25),
+                            child: Container(
+                              width: screenWidth * 0.8,
+                              height: screenHeight * 0.75,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(25),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    blurRadius: 20,
+                                    spreadRadius: 2,
+                                    offset: Offset(0.5, 0.5),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
                                 Padding(
                                   padding: EdgeInsets.only(
                                     left: screenWidth * 0.05,
@@ -151,22 +156,25 @@ class _SummaryPageState extends State<SummaryPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "챗봇에게 질문하기",
-                                        style: TextStyle(
-                                          fontSize: 14 * textScaleFactor,
-                                          color: Color.fromARGB(
-                                            255,
-                                            34,
-                                            92,
-                                            168,
+                                      Expanded(
+                                        child: Text(
+                                          "프로픽 봇",
+                                          style: TextStyle(
+                                            fontSize: 18 * textScaleFactor,
+                                            color: Color.fromARGB(
+                                              255,
+                                              34,
+                                              92,
+                                              168,
+                                            ),
+                                            decoration: TextDecoration.none,
                                           ),
-                                          decoration: TextDecoration.none,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                       IconButton(
                                         onPressed: () => Navigator.pop(context),
-                                        icon: Icon(Icons.close),
+                                        icon: const Icon(Icons.close),
                                       ),
                                     ],
                                   ),
@@ -175,7 +183,15 @@ class _SummaryPageState extends State<SummaryPage> {
                                   thickness: 1,
                                   color: Color(0xFFE8E8E8),
                                 ),
-                              ],
+                                Expanded(
+                                  child: ChatBotWidget(
+                                    width: screenWidth * 0.8,
+                                    serviceName: servName,
+                                    welfareFullText: welfareFullText,
+                                  ),
+                                ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
